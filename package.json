@@ -1,6 +1,9 @@
 {
   "name": "documentation-lint",
   "license": "BSD-3-Clause",
+  "scripts": {
+    "test": "node --test"
+  },
   "dependencies": {
     "@silverstripe/eslint-config": "^1.1.0",
     "eslint": "^8.52.0",

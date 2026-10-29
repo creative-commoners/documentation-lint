@@ -7,10 +7,26 @@ on:
 permissions: {}
 
 jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+
+      - run: npm install
+
+      - run: npm test
+
   ci:
-    # This repo has no tests and nothing to lint, so we can't use regular CI.
-    # Instead, just directly dispatch tag release on push, and let that figure it out.
+    # Dispatch tag release on push once tests pass, and let that figure it out.
     name: Dispatch tag patch release
+    needs: test
     runs-on: ubuntu-latest
     if: github.repository_owner == 'silverstripe'
     permissions:
